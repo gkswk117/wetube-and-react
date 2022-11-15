@@ -1,0 +1,6 @@
+export const join = (req, res) => res.send("안녕")
+export const editUser = (req, res) => res.send("Edit User Page")
+export const deleteUser = (req, res) => res.send("Delete User Page")
+export const login = (req, res) => res.send("Login User Page")
+export const logout = (req, res) => res.send("Logout User Page")
+export const seeUser = (req, res) => res.send("See User Page")
