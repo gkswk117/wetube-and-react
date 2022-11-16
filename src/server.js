@@ -10,6 +10,7 @@ const loggerMiddleware=(req,res,next)=>{
     console.log(`Someone is going to "${req.url}" with method {${req.method}}`)
     next();
 }
+app.set("view engine", "pug")
 app.use(morgan("dev"))
 //middleware를 npm에서 설치해서 사용해봄.
 app.use(loggerMiddleware)
