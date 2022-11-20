@@ -17,6 +17,7 @@ app.use(morgan("dev"))
 app.use(loggerMiddleware)
 //middleware를 직접 만들어서 사용해봄.
 
+app.use(express.urlencoded({extended:true}))
 app.use("/", globalRouter)
 app.use("/video", videoRouter)
 app.use("/user", userRouter)
