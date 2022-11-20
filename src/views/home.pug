@@ -1,17 +1,9 @@
-doctype html
-html(lang="en")
-  head
-    title= pageTitle
-    script(type='text/javascript').
-      if (foo) bar(1 + 5)
-  body
-    h1 Pug - node template engine
-    #container.col
-      if youAreUsingPug
-        p You are amazing
-      else
-        p Get on it!
-      p.
-        Pug is a terse and simple templating language with a
-        strong focus on performance and powerful features.
-    footer &copy; 2022 Wetube
+extends base.pug
+include mixins/video.pug
+
+block content 
+  h1 home! #{potato}
+  input(placeholder="입력하세요.")
+  ul 
+    each video, index in  videos
+      +video(video, index)
