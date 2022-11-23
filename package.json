@@ -4,7 +4,7 @@
   "description": "The best way to watch videos. 이건 그냥 정보를 저장해두는 파일일뿐. 개발을 쉽게 하기 위한 정보 파일이다.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node src/server.js"
+    "dev": "nodemon --exec babel-node src/init.js"
   },
   "repository": {
     "type": "git",

@@ -1,12 +1,9 @@
-import "./db"
-import Video from "./models/Video"
 import express from "express"
 import morgan from "morgan"
 import globalRouter from "./routers/globalRouter"
 import userRouter from "./routers/userRouter"
 import videoRouter from "./routers/videoRouter"
 
-const PORT = 4000
 const app = express()
 const loggerMiddleware=(req,res,next)=>{
     console.log(`Someone is going to "${req.url}" with method {${req.method}}`)
@@ -26,4 +23,4 @@ app.use("/user", userRouter)
 
 //app.get("/", handleHome)
 
-app.listen(PORT, ()=>{console.log(`Server listening on port http://localhost:${PORT}`)})
+export default app
