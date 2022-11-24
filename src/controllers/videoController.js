@@ -1,3 +1,5 @@
+import { render } from "pug"
+import Video from "../models/Video"
 //fake database
 const fakeUser = {
     username: "gkswk",
@@ -30,9 +32,23 @@ const videos = [
     }
 ]
 //controller
-export const recommendedVideo = (req, res) => {
-    res.render("home", {pageTitle: "Home", potato: "I love you.", fakeUser:fakeUser, videos:videos})
+// export const home = (req, res) => {
+//     res.render("home", {pageTitle: "Home", potato: "I love you.", fakeUser:fakeUser, videos:videos})
+// }
+
+export const home = (req, res) => {
+    let varr = {t:"t"}
+    console.log("Starting Search")
+    Video.find({}, (err, videos)=>{
+        varr = videos
+        console.log("Finished Search")
+        return res.render("home", {pageTitle:"Home", potato: "I love you.", fakeUser:fakeUser, videos:videos})
+    })
+    console.log(varr)
+    console.log("I should be the last one.")
 }
+
+
 export const searchVideo = (req, res) => {
     console.log("req.params는")
     console.log(req.params)
