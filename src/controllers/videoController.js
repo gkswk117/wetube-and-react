@@ -32,20 +32,31 @@ const videos = [
     }
 ]
 //controller
+//Using callback function
+// let testVar = {t:"t"}
 // export const home = (req, res) => {
-//     res.render("home", {pageTitle: "Home", potato: "I love you.", fakeUser:fakeUser, videos:videos})
+//     console.log("Starting Search")
+//     Video.find({}, (err, videos)=>{
+//         testVar = videos
+//         console.log("Finished Search")
+//         console.log(`testVar is ${testVar}`)
+//         return res.render("home", {pageTitle:"Home", potato: "I love you.", fakeUser:fakeUser, videos:videos})
+//     })
+//     console.log(testVar)
+//     console.log("I finish first.")
 // }
-
-export const home = (req, res) => {
-    let varr = {t:"t"}
-    console.log("Starting Search")
-    Video.find({}, (err, videos)=>{
-        varr = videos
+//Using Promise
+export const home = async(req, res)=>{
+    try{
+        console.log("Starting Search")
+        const videos = await Video.find({})
+        console.log(videos)
         console.log("Finished Search")
         return res.render("home", {pageTitle:"Home", potato: "I love you.", fakeUser:fakeUser, videos:videos})
-    })
-    console.log(varr)
-    console.log("I should be the last one.")
+    }catch(err){
+        console.log(err)
+        return res.send("error!!")
+    }
 }
 
 
@@ -77,8 +88,17 @@ export const postEdit = (req, res)=>{
 export const getUpload = (req, res) =>{
     return res.render("upload", {pageTitle:`Upload`, fakeUser:fakeUser} )
 }
-export const postUpload = (req, res) =>{
+export const postUpload = async (req, res) =>{
     // here we will add a video to the videos array.
-    console.log(req.body.tomato)
-    return res.redirect("/")
+    try{
+        await Video.create({
+            title:req.body.tomato,
+            description:req.body.description,
+            hashtags:req.body.hashtags.split(",").map(word => `#${word}`)
+        })
+        return res.redirect("/")
+    }catch(err){
+        console.log(err)
+        return res.render("upload", {pageTitle:`Upload`, fakeUser:fakeUser, errorMessage:err._message} )
+    }   
 }

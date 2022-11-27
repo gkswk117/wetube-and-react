@@ -5,5 +5,12 @@ block content
   h2 home! #{potato}
   input(placeholder="입력하세요.")
   ul 
-    each video, index in  videos
+    each video, index in videos
       +video(video, index)
+    else
+      li There is no values.
+      li There is no values.
+      li There is no values.
+      li There is no values.
+      li There is no values.
+      li There is no values.

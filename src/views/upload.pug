@@ -2,6 +2,10 @@ extends base.pug
 
 block content
     h2 업로드 페이지 입니다.
-    form(method="POST", action="/video/potTestkkk")
-        input(name="tomato", placeholder="upload!!!!", required)
+    if(errorMessage)
+        span=errorMessage
+    form(method="POST", action="/video/postTestkkk")
+        input(name="tomato", placeholder="Title!", required, maxLength: 50)
+        input(name="description", placeholder="Description!", required, maxLength: 140)
+        input(name="hashtags", placeholder="Hashtags! separated by comma.", required)
         input(value="push!!!", type="submit")
