@@ -3,5 +3,7 @@ mixin video(video, index)
         h4
           a(href=`video/${video.id}`) #{index+1}: #{video.title}
         p=video.description
+        each hashtag in video.hashtags
+          p=hashtag
         small=video.createdAt
         hr

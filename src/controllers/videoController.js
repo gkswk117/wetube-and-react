@@ -42,7 +42,7 @@ export const postUpload = async (req, res) =>{
         await Video.create({
             title:req.body.tomato,
             description:req.body.description,
-            hashtags: req.body.hashtags,
+            hashtags: Video.formatHashtags(req.body.hashtags),
         })
         return res.redirect("/")
     }catch(err){
@@ -82,9 +82,8 @@ export const postEdit = async(req, res)=>{
     await Video.findByIdAndUpdate(req.params.id ,{
         title: req.body.title,
         description: req.body.description,
-        hashtags: req.body.hashtags,
+        hashtags: Video.formatHashtags(req.body.hashtags),
     })
-    
     return res.redirect(`/video/${req.params.id}`)
 }
 
