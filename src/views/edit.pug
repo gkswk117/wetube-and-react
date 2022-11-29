@@ -2,6 +2,11 @@ extends base.pug
 
 block content
     h2 #{video.title} 제목 수정
-    form(method="POST")
-        input(name="potato", placeholder="Video Title", value=video.title, required)
+    form(method="POST", action="")
+        input(name="title", placeholder="Video Title", value=video.title, required)
+        br
+        input(name="description", placeholder="Description!", value=video.description, required, maxLength: 140)
+        br
+        input(name="hashtags", placeholder="Hashtags! separated by comma.", value=video.hashtags.join(), required)
+        br
         input(value="Save", type="submit")

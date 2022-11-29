@@ -2,8 +2,7 @@ doctype html
 html(lang="en")
   head
     title #{pageTitle} | Wetube
-    script(type='text/javascript').
-      if (foo) bar(1 + 5)
+    script(type='text/javascript')
   body
     header
         nav
@@ -15,6 +14,8 @@ html(lang="en")
                         a(href="/login") Login
                 li
                   a(href="/video/upload") Upload video
-    h1=pageTitle
+                li
+                  a(href="/") Home
+    h1 #{pageTitle} Page!
     block content
   include partials/footer.pug
