@@ -65,13 +65,26 @@ export const getEdit = async(req, res) => {
     return res.render("edit", {pageTitle:`Editing ${video.title}`, video:video, fakeUser:fakeUser})
 }
 export const postEdit = async(req, res)=>{
-    const video = await Video.findById(req.params.id)
+    // ㅡㅡ Not cool way.
+    // const video = await Video.findById(req.params.id)
+    // if(!video){
+    //     return res.render("404", {fakeUser:fakeUser})
+    // }
+    // video.title = req.body.title
+    // video.hashtags = req.body.hashtags.split(",").map(word => word.startsWith('#')? word :`#${word}`)
+    // await video.save()
+
+    //using sexy mongoose function
+    const video = await Video.exists({_id : req.params.id})
     if(!video){
         return res.render("404", {fakeUser:fakeUser})
     }
-    video.title = req.body.title
-    video.hashtags = req.body.hashtags.split(",").map(word => word.startsWith('#')? word :`#${word}`)
-    await video.save()
+    await Video.findByIdAndUpdate(req.params.id ,{
+        title: req.body.title,
+        description: req.body.description,
+        hashtags: req.body.hashtags.split(",").map(word => word.startsWith('#')? word :`#${word}`)
+    })
+    
     return res.redirect(`/video/${req.params.id}`)
 }
 
