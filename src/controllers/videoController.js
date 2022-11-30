@@ -22,10 +22,7 @@ const fakeUser = {
 //Using Promise
 export const home = async(req, res)=>{
     try{
-        console.log("Starting Search")
-        const videos = await Video.find({})
-        console.log(videos)
-        console.log("Finished Search")
+        const videos = await Video.find({}).sort({createdAt: "desc"})
         return res.render("home", {pageTitle:"Home", potato: "I love you.", fakeUser:fakeUser, videos:videos})
     }catch(err){
         console.log(err)
@@ -86,10 +83,21 @@ export const postEdit = async(req, res)=>{
     })
     return res.redirect(`/video/${req.params.id}`)
 }
-
-
-export const searchVideo = (req, res) => {
-    console.log("req.params는")
-    console.log(req.params)
-    res.render("search", {pageTitle: "Search", fakeUser:fakeUser})
+export const deleteVideo = async (req, res) =>{
+    await Video.findByIdAndDelete(req.params.id)
+    return res.redirect("/")
+}
+export const searchVideo = async(req, res) => {
+    console.log("req.query는")
+    console.log(req.query)
+    let videos = []
+    if(req.query.keyword){
+        videos = await Video.find({
+            title: { 
+                $regex: req.query.keyword
+                // https://docs.mongodb.com/manual/reference/operator/query/regex/
+            }
+        }).sort({createdAt: "desc"})
+    }
+    return res.render("search", {pageTitle: "Search", fakeUser:fakeUser, videos})
 }

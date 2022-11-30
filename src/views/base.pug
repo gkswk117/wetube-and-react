@@ -13,9 +13,12 @@ html(lang="en")
                     else
                         a(href="/login") Login
                 li
-                  a(href="/video/upload") Upload video
-                li
                   a(href="/") Home
+                li
+                  a(href="/search") Search video
+                li
+                  a(href="/video/upload") Upload video
+                
     h1 #{pageTitle} Page!
     block content
   include partials/footer.pug
