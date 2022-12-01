@@ -1,3 +1,4 @@
+import User from "../models/User"
 export const getSignUp = (req, res) => res.render("signUp", {pageTitle:"Create Account"})
 export const postSignUp = (req, res) => {
     console.log(req.body)
