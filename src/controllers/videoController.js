@@ -1,10 +1,5 @@
 import { render } from "pug"
 import Video from "../models/Video"
-//fake database
-const fakeUser = {
-    username: "gkswk",
-    loggedIn: false
-}
 //controller
 //Using callback function
 // let testVar = {t:"t"}
@@ -14,7 +9,7 @@ const fakeUser = {
 //         testVar = videos
 //         console.log("Finished Search")
 //         console.log(`testVar is ${testVar}`)
-//         return res.render("home", {pageTitle:"Home", potato: "I love you.", fakeUser:fakeUser, videos:videos})
+//         return res.render("home", {pageTitle:"Home", potato: "I love you.", videos:videos})
 //     })
 //     console.log(testVar)
 //     console.log("I finish first.")
@@ -23,7 +18,7 @@ const fakeUser = {
 export const home = async(req, res)=>{
     try{
         const videos = await Video.find({}).sort({createdAt: "desc"})
-        return res.render("home", {pageTitle:"Home", potato: "I love you.", fakeUser:fakeUser, videos:videos})
+        return res.render("home", {pageTitle:"Home", potato: "I love you.", videos:videos})
     }catch(err){
         console.log(err)
         return res.send("error!!")
@@ -31,7 +26,7 @@ export const home = async(req, res)=>{
 }
 export const getUpload = (req, res) =>{
     const {id} = req.params
-    return res.render("upload", {pageTitle:`Upload`, fakeUser:fakeUser} )
+    return res.render("upload", {pageTitle:`Upload`} )
 }
 export const postUpload = async (req, res) =>{
     // here we will add a video to the videos array.
@@ -44,7 +39,7 @@ export const postUpload = async (req, res) =>{
         return res.redirect("/")
     }catch(err){
         console.log(err)
-        return res.render("upload", {pageTitle:`Upload`, fakeUser:fakeUser, errorMessage:err._message} )
+        return res.render("upload", {pageTitle:`Upload`, errorMessage:err._message} )
     }
 }
 export const watchVideo = async (req, res) => {
@@ -52,14 +47,14 @@ export const watchVideo = async (req, res) => {
     if(!video){
         return res.render("404", {fakeUser:fakeUser})
     }
-    return res.render("watch", {pageTitle: video.title, video: video, fakeUser:fakeUser})
+    return res.render("watch", {pageTitle: video.title, video: video})
 }
 export const getEdit = async(req, res) => {
     const video = await Video.findById(req.params.id)
     if(!video){
         return res.render("404", {fakeUser:fakeUser})
     }
-    return res.render("edit", {pageTitle:`Editing ${video.title}`, video:video, fakeUser:fakeUser})
+    return res.render("edit", {pageTitle:`Editing ${video.title}`, video:video})
 }
 export const postEdit = async(req, res)=>{
     // ㅡㅡ Not cool way.
@@ -99,5 +94,5 @@ export const searchVideo = async(req, res) => {
             }
         }).sort({createdAt: "desc"})
     }
-    return res.render("search", {pageTitle: "Search", fakeUser:fakeUser, videos})
+    return res.render("search", {pageTitle: "Search", videos})
 }

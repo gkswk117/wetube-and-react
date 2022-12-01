@@ -1,4 +1,8 @@
-export const join = (req, res) => res.send("안녕")
+export const getSignUp = (req, res) => res.render("signUp", {pageTitle:"Create Account"})
+export const postSignUp = (req, res) => {
+    console.log(req.body)
+    res.end()
+}
 export const editUser = (req, res) => res.send("Edit User Page")
 export const deleteUser = (req, res) => res.send("Delete User Page")
 export const login = (req, res) => res.send("Login User Page")

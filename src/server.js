@@ -1,6 +1,6 @@
 import express from "express"
 import morgan from "morgan"
-import globalRouter from "./routers/globalRouter"
+import rootRouter from "./routers/rootRouter"
 import userRouter from "./routers/userRouter"
 import videoRouter from "./routers/videoRouter"
 
@@ -17,7 +17,7 @@ app.use(loggerMiddleware)
 //middleware를 직접 만들어서 사용해봄.
 
 app.use(express.urlencoded({extended:true}))
-app.use("/", globalRouter)
+app.use("/", rootRouter)
 app.use("/video", videoRouter)
 app.use("/user", userRouter)
 
