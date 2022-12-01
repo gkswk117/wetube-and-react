@@ -1,9 +1,15 @@
 import User from "../models/User"
 export const getSignUp = (req, res) => res.render("signUp", {pageTitle:"Create Account"})
-export const postSignUp = (req, res) => {
+export const postSignUp = async(req, res) => {
     console.log(req.body)
-    res.end()
+    const {name, username, email, password, location} = req.body
+    await User.create({
+        name, username, email, password, location,
+    })
+    return res.redirect("/login")
 }
+
+
 export const editUser = (req, res) => res.send("Edit User Page")
 export const deleteUser = (req, res) => res.send("Delete User Page")
 export const login = (req, res) => res.send("Login User Page")
