@@ -1,6 +1,7 @@
 extends base.pug
 
 block content
+    
     form(method="POST")
         input(name="name", type="text", placeholder="name", required)
         br
@@ -13,3 +14,7 @@ block content
         input(name="location", type="text", placeholder="location", required)
         br
         input(type="submit", value="Join!")
+    button(name="check", type="button", onclick="func()") 아이디 확인
+    script.
+        const val = #{link};
+        const func = function(){console.log(val)};
