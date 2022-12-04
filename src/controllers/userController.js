@@ -2,9 +2,21 @@ import User from "../models/User"
 let link = 1
 export const getSignUp = (req, res) => res.render("signUp", {pageTitle:"Create Account", link}) 
 export const postSignUp = async(req, res) => {
-    console.log(req.body)
-    const {name, username, email, password, location} = req.body
-    const usernameExists = await User.exists({username:username})
+    const { name, username, email, password, password2, location } = req.body;
+    const pageTitle = "signUp";
+    if (password !== password2) {
+      return res.render("signUp", {
+        pageTitle,
+        errorMessage: "Password confirmation does not match.",
+      });
+    }
+    const exists = await User.exists({ $or: [{ username }, { email }] });
+    if (exists) {
+      return res.render("signUp", {
+        pageTitle,
+        errorMessage: "This username/email is already taken.",
+      });
+    }
     await User.create({
         name, username, email, password, location,
     })

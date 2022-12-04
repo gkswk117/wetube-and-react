@@ -1,15 +1,22 @@
 extends base.pug
 
 block content
-    
-    form(method="POST")
+    form(id="test3", method="POST")
+            input(name="username", type="text", placeholder="username", required)
+            input(type="submit", value="check!")
+        
+    form(id="test", method="POST")
+        if errorMessage
+            span #{errorMessage}
+        br
         input(name="name", type="text", placeholder="name", required)
         br
         input(name="email", type="email", placeholder="email", required)
         br
-        input(name="username", type="text", placeholder="username", required)
         br
         input(name="password", type="password", placeholder="password", required)
+        br
+        input(placeholder="Confirm Password", name="password2", type="password", required)
         br
         input(name="location", type="text", placeholder="location", required)
         br
@@ -18,3 +25,5 @@ block content
     script.
         const val = #{link};
         const func = function(){console.log(val)};
+        //- const testForm = document.querySelector("#test2");
+        //- testForm.addEventListener("submit", func);
