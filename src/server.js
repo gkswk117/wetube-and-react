@@ -4,6 +4,7 @@ import session from "express-session"
 import rootRouter from "./routers/rootRouter"
 import userRouter from "./routers/userRouter"
 import videoRouter from "./routers/videoRouter"
+import { localsMiddleware } from "./middlewares"
 
 const app = express()
 const loggerMiddleware=(req,res,next)=>{
@@ -25,15 +26,18 @@ app.use(session({
     saveUninitialized: true,
 }))
 app.use((req, res, next) => {
-    console.log(req.session)
     req.session.potato += 1;
-    console.log(`${req.session.id} /////////////////////// ${req.session.potato}`)
+    console.log("※ session: ")
+    console.log(req.session)
+    console.log(`id: ${req.session.id} /////////////////////// potato: ${req.session.potato}`)
+
     req.sessionStore.all((error, sessions) => {
-      console.log("sessions: ")
+      console.log("※ sessions: ")
       console.log(sessions);
       next();
     });
 });
+app.use(localsMiddleware)
 
 app.use("/", rootRouter)
 app.use("/video", videoRouter)

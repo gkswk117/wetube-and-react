@@ -24,8 +24,9 @@ export const postSignUp = async(req, res) => {
         name, username, email, password, location,
       })
     }catch (error) {
-      return res.status(400).render("join", {
-        pageTitle: "Upload Video",
+      console.log(error)
+      return res.status(400).render("signUp", {
+        pageTitle: "Failed",
         errorMessage: error._message,
       });
     }
@@ -50,6 +51,8 @@ export const postLogin = async (req, res) => {
       errorMessage: "Wrong password",
     });
   }
+  req.session.loggedIn = true
+  req.session.user = user
   return res.redirect("/");
 };
 
