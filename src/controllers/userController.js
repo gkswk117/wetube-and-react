@@ -56,8 +56,12 @@ export const postLogin = async (req, res) => {
   return res.redirect("/");
 };
 
-
-export const editUser = (req, res) => res.send("Edit User Page")
+export const getEdit = (req, res) => {
+  return res.render("edit-profile", {pageTitle:"Edit Profile"})
+}
+export const postEdit = (req, res) => {
+  return res.redirect("/")
+}
 export const deleteUser = (req, res) => res.send("Delete User Page")
 export const logout = (req, res) => res.send("Logout User Page")
 export const seeUser = (req, res) => res.send("See User Page")
