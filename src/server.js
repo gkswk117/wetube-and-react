@@ -21,18 +21,18 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
 }))
-app.use((req, res, next) => {
-    req.session.potato += 1;
-    console.log("※ session: ")
-    console.log(req.session)
-    console.log(`id: ${req.session.id} /////////////////////// potato: ${req.session.potato}`)
+// app.use((req, res, next) => {
+//     req.session.potato += 1;
+//     console.log("※ session: ")
+//     console.log(req.session)
+//     console.log(`id: ${req.session.id} /////////////////////// potato: ${req.session.potato}`)
 
-    req.sessionStore.all((error, sessions) => {
-      console.log("※ sessions: ")
-      console.log(sessions);
-      next();
-    });
-});
+//     req.sessionStore.all((error, sessions) => {
+//       console.log("※ sessions: ")
+//       console.log(sessions);
+//       next();
+//     });
+// });
 app.use(localsMiddleware)
 
 app.use("/", rootRouter)
