@@ -63,8 +63,9 @@ export const postEdit = async (req, res) => {
   // const _id = req.session.user._id;
   // const {name,email,username,location} = req.body
   const { session:{user:_id}, body:{name,email,username,location} } = req
-  await User.findByIdAndUpdate(_id, {name,email,username,location})
-  return res.redirect("/")
+  const updatedUser = await User.findByIdAndUpdate(_id, {name,email,username,location}, {new:true})
+  req.session.user = updatedUser
+  return res.redirect("/user/edit")
 }
 export const logout = (req, res) => {
   req.session.destroy();
