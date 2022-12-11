@@ -4,18 +4,14 @@ import session from "express-session"
 import rootRouter from "./routers/rootRouter"
 import userRouter from "./routers/userRouter"
 import videoRouter from "./routers/videoRouter"
-import { localsMiddleware } from "./middlewares"
+import { loggerMiddleware, localsMiddleware } from "./middlewares"
 
 const app = express()
-const loggerMiddleware=(req,res,next)=>{
-    console.log("페이지 새로고침------------------------------------------>")
-    console.log(`Someone is going to "${req.url}" with method {${req.method}}`)
-    next();
-}
+
 app.set("view engine", "pug")
 app.set("views", process.cwd()+"/src/views")
 app.use(morgan("dev"))
-//middleware를 npm에서 설치해서 사용해봄.
+//middleware를 npm에서 설치해서 사용해봄. 많이 쓰이는 (morgan) 미들웨어
 app.use(loggerMiddleware)
 //middleware를 직접 만들어서 사용해봄.
 app.use(express.urlencoded({extended:true}))

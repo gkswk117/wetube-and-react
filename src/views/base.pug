@@ -10,6 +10,8 @@ html(lang="en")
                 li
                   a(href="/") Home
                 if loggedIn
+                  li
+                    a(href="/video/upload") Upload video
                   li 
                     a(href="/user/edit") Edit Profile
                   li 
@@ -21,9 +23,6 @@ html(lang="en")
                     a(href="/login") Sign in
                 li
                   a(href="/search") Search video
-                li
-                  a(href="/video/upload") Upload video
-                
     h1 #{pageTitle} Page!
     block content
   include partials/footer.pug
