@@ -62,6 +62,11 @@ export const getEdit = (req, res) => {
 export const postEdit = (req, res) => {
   return res.redirect("/")
 }
+export const logout = (req, res) => {
+  req.session.destroy();
+  return res.redirect("/")
+}
+
 export const deleteUser = (req, res) => res.send("Delete User Page")
-export const logout = (req, res) => res.send("Logout User Page")
+
 export const seeUser = (req, res) => res.send("See User Page")
