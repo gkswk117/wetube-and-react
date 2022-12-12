@@ -1,3 +1,5 @@
+import multer from "multer";
+
 export const loggerMiddleware=(req,res,next)=>{
     console.log("페이지 새로고침------------------------------------------>")
     console.log(`Someone is going to "${req.url}" with method {${req.method}}`)
@@ -26,3 +28,5 @@ export const publicOnlyMiddleware = (req, res, next) => {
         return res.redirect("/");
     }
 };
+
+export const uploadFiles = multer({dest:"uploads/"})
