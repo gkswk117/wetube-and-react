@@ -4,7 +4,9 @@ block content
     h2 업로드 페이지 입니다.
     if(errorMessage)
         span=errorMessage
-    form(method="POST", action="/video/upload")
+    form(method="POST", enctype="multipart/form-data")
+        label(for="videoo")
+        input(type="file", accept="video/*", required, id="videoo", name="video")
         input(name="tomato", placeholder="Title!", required, maxLength: 50)
         input(name="description", placeholder="Description!", required, maxLength: 140)
         input(name="hashtags", placeholder="Hashtags! separated by comma.", required)
