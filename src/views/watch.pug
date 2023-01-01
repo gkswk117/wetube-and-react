@@ -1,6 +1,7 @@
 extends base.pug
 
 block content
+  video(src="/"+video.fileUrl, controls)
   div
     p Watch | #{video.title}
     small #{video.meta.views} #{video.meta.views===1 || video.meta.views===0 ? "view" : "views"} 

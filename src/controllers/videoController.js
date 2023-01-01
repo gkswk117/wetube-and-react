@@ -30,9 +30,11 @@ export const getUpload = (req, res) =>{
 }
 export const postUpload = async (req, res) =>{
     // here we will add a video to the videos array.
+    const {path: fileUrl} = req.file //(es6문법)
+    // const fileUrl = req.file.path 
     try{
         await Video.create({
-            fileUrl:req.file.path,
+            fileUrl,
             title:req.body.tomato,
             description:req.body.description,
             hashtags: Video.formatHashtags(req.body.hashtags),
