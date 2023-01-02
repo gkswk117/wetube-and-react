@@ -1,5 +1,6 @@
 import { render } from "pug"
 import Video from "../models/Video"
+import User from "../models/User"
 //controller
 //Using callback function
 // let testVar = {t:"t"}
@@ -29,14 +30,15 @@ export const getUpload = (req, res) =>{
     return res.render("upload", {pageTitle:`Upload`} )
 }
 export const postUpload = async (req, res) =>{
-    // here we will add a video to the videos array.
+    const _id = req.session.user._id
     const {path: fileUrl} = req.file //(es6문법)
     // const fileUrl = req.file.path 
     try{
         await Video.create({
-            fileUrl,
             title:req.body.tomato,
             description:req.body.description,
+            fileUrl,
+            owner: _id,
             hashtags: Video.formatHashtags(req.body.hashtags),
         })
         return res.redirect("/")
@@ -47,15 +49,16 @@ export const postUpload = async (req, res) =>{
 }
 export const watchVideo = async (req, res) => {
     const video = await Video.findById(req.params.id)
+    const owner = await User.findById(video.owner)
     if(!video){
-        return res.render("404", {fakeUser:fakeUser})
+        return res.status(404).render("404", {pageTitle: "Video not found."})
     }
-    return res.render("watch", {pageTitle: video.title, video: video})
+    return res.render("watch", {pageTitle: video.title, video, owner})
 }
 export const getEdit = async(req, res) => {
     const video = await Video.findById(req.params.id)
     if(!video){
-        return res.render("404", {fakeUser:fakeUser})
+        return res.status(404).render("404", {pageTitle: "Video not found."})
     }
     return res.render("edit", {pageTitle:`Editing ${video.title}`, video:video})
 }

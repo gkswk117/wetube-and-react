@@ -5,8 +5,10 @@ block content
   div
     p Watch | #{video.title}
     small #{video.meta.views} #{video.meta.views===1 || video.meta.views===0 ? "view" : "views"} 
+    br
+    small Uploaded by #{owner.name}
   hr
-  br
-  a(href=`${video.id}/edit`) Edit Video &rarr;
-  br
-  a(href=`${video.id}/delete`) Delete Video &rarr;
+  if String(video.owner) === String(loggedInUser._id)
+    a(href=`${video.id}/edit`) Edit Video &rarr;
+    br
+    a(href=`${video.id}/delete`) Delete Video &rarr;
