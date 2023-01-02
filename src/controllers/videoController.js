@@ -48,7 +48,9 @@ export const postUpload = async (req, res) =>{
     }
 }
 export const watchVideo = async (req, res) => {
-    const video = await Video.findById(req.params.id)
+    //const video = await Video.findById(req.params.id)
+    const video = await Video.findById(req.params.id).populate("owner")
+    console.log(video)
     const owner = await User.findById(video.owner)
     if(!video){
         return res.status(404).render("404", {pageTitle: "Video not found."})
