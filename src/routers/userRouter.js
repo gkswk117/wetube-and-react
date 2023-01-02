@@ -3,7 +3,7 @@ import {getEdit, postEdit, deleteUser, seeUser,logout, getChangePassword, postCh
 import { protectorMiddleware, uploadAvatar } from "../middlewares"
 const userRouter = express.Router()
 
-//userRouter.get("/:id", seeUser)
+userRouter.get("/:id", seeUser)
 userRouter.get("/logout", protectorMiddleware ,logout)
 userRouter.route("/edit").all(protectorMiddleware).get(getEdit).post(uploadAvatar.single("avatar"), postEdit)
 userRouter.route("/change-password").all(protectorMiddleware).get(getChangePassword).post(postChangePassword)

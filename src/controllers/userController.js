@@ -99,4 +99,11 @@ export const postChangePassword = async (req,res)=>{
 }
 export const deleteUser = (req, res) => res.send("Delete User Page")
 
-export const seeUser = (req, res) => res.send("See User Page")
+export const seeUser = async (req, res) => {
+  console.log(req.params.id)
+  const user = await User.findById(_id);
+  if(!user){
+    return res.status(404).render("404", {pageTitle:"User not found."})
+  }
+  return res.render("profile", {pageTitle:`${user.name} Profile`, user})
+}
