@@ -70,6 +70,7 @@ export const postEdit = async (req, res) => {
   return res.redirect("/user/edit")
 }
 export const logout = (req, res) => {
+  console.log("logout 실행.")
   req.session.destroy();
   return res.redirect("/")
 }
@@ -102,12 +103,10 @@ export const deleteUser = (req, res) => res.send("Delete User Page")
 
 export const seeUser = async (req, res) => {
   const {id} = req.params
-  console.log(id)
-  const user = await User.findById(id);
+  const user = await User.findById(id).populate("videos");
   if(!user){
     return res.status(404).render("404", {pageTitle:"User not found."})
   }
-  const videos = await Video.find({owner:id})
-  console.log(videos)
-  return res.render("profile", {pageTitle:`${user.name} Profile`, user, videos})
+  console.log(user)
+  return res.render("profile", {pageTitle:`${user.name} Profile`, user})
 }

@@ -4,7 +4,7 @@ include mixins/video.pug
 block content
     h1 Hello
     h2 This is #{user.name}'s page || #{loggedInUser._id}
-    each video, index in videos
+    each video, index in user.videos
       +video(video, index)
     else
       li There is no values.

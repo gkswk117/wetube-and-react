@@ -1,7 +1,8 @@
 import { render } from "pug"
 import Video from "../models/Video"
-//controller
-//Using callback function
+import User from "../models/User"
+//controller - Using callback function
+//
 // let testVar = {t:"t"}
 // export const home = (req, res) => {
 //     console.log("Starting Search")
@@ -14,7 +15,7 @@ import Video from "../models/Video"
 //     console.log(testVar)
 //     console.log("I finish first.")
 // }
-//Using Promise
+//controller - Using Promise
 export const home = async(req, res)=>{
     try{
         const videos = await Video.find({}).sort({createdAt: "desc"})
@@ -33,13 +34,16 @@ export const postUpload = async (req, res) =>{
     const {path: fileUrl} = req.file //(es6문법)
     // const fileUrl = req.file.path 
     try{
-        await Video.create({
+        const newVideo = await Video.create({
             title:req.body.tomato,
             description:req.body.description,
             fileUrl,
             owner: _id,
             hashtags: Video.formatHashtags(req.body.hashtags),
         })
+        const user = await User.findById(_id)
+        user.videos.push(newVideo._id)
+        user.save()
         return res.redirect("/")
     }catch(err){
         console.log(err)
