@@ -70,7 +70,6 @@ export const postEdit = async (req, res) => {
   return res.redirect("/user/edit")
 }
 export const logout = (req, res) => {
-  console.log("logout 실행.")
   req.session.destroy();
   return res.redirect("/")
 }
