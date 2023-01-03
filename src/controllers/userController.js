@@ -1,4 +1,5 @@
 import User from "../models/User"
+import Video from "../models/Video"
 import bcrypt from "bcrypt"
 
 let link = 1
@@ -100,10 +101,13 @@ export const postChangePassword = async (req,res)=>{
 export const deleteUser = (req, res) => res.send("Delete User Page")
 
 export const seeUser = async (req, res) => {
-  console.log(req.params.id)
-  const user = await User.findById(_id);
+  const {id} = req.params
+  console.log(id)
+  const user = await User.findById(id);
   if(!user){
     return res.status(404).render("404", {pageTitle:"User not found."})
   }
-  return res.render("profile", {pageTitle:`${user.name} Profile`, user})
+  const videos = await Video.find({owner:id})
+  console.log(videos)
+  return res.render("profile", {pageTitle:`${user.name} Profile`, user, videos})
 }

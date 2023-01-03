@@ -1,5 +1,15 @@
 extends base.pug
+include mixins/video.pug
 
 block content
     h1 Hello
-    h2 #{loggedInUser._id}
+    h2 This is #{user.name}'s page || #{loggedInUser._id}
+    each video, index in videos
+      +video(video, index)
+    else
+      li There is no values.
+      li There is no values.
+      li There is no values.
+      li There is no values.
+      li There is no values.
+      li There is no values.
