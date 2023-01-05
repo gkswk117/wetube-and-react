@@ -21,6 +21,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
 }))
+// Session 연습
 // app.use((req, res, next) => {
 //     req.session.potato += 1;
 //     console.log("※ session: ")
@@ -35,6 +36,8 @@ app.use(session({
 // });
 app.use(localsMiddleware)
 app.use("/uploads", express.static("uploads"))
+app.use("/test", express.static("assets"))
+// 서버한테 assets 폴더의 내용물을 /test 주소를 통해 공개하라고 하는 것.(#9.3 4:25~)
 app.use("/", rootRouter)
 app.use("/video", videoRouter)
 app.use("/user", userRouter)
