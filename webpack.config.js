@@ -3,13 +3,15 @@ const path = require("path")
 console.log(path.resolve(__dirname, "assets", "js"))
 module.exports ={
     entry:"./src/client/js/main.js",
+    watch: true,
+    mode:"development",
     plugins: [new MiniCssExtractPlugin({
         filename:"css/styles.css"
     })],
-    mode:"development",
     output: {
         filename:"js/main.js",
-        path: path.resolve(__dirname, "assets")
+        path: path.resolve(__dirname, "assets"),
+        clean: true,
     },
     module:{
         rules:[
