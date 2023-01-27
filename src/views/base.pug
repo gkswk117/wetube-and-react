@@ -6,28 +6,8 @@ html(lang="en")
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css")
     link(rel="stylesheet", href="/test/css/styles.css")
   body
-    header
-        nav
-            ul
-                li
-                  a(href="/") Home
-                if loggedIn
-                  li
-                    a(href="/video/upload") Upload video
-                  li 
-                    a(href=`/user/${loggedInUser._id}`) My Profile
-                  li 
-                    a(href="/user/edit") Edit Profile
-                  li 
-                    a(href="/user/logout") Log Out
-                else
-                  li
-                    a(href="/signup") Sign up
-                  li
-                    a(href="/login") Sign in
-                li
-                  a(href="/search") Search video
+    include partials/header.pug
     h1 #{pageTitle} PAGE
     block content
-  include partials/footer.pug
+    include partials/footer.pug
   script(src="/test/js/main.js")
