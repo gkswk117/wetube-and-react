@@ -4,13 +4,8 @@ include mixins/video.pug
 block content 
   h2 home! #{potato}
   input(placeholder="입력하세요.")
-  ul 
+  div.video-grid 
     each video, index in videos
       +video(video, index)
     else
-      li There is no values.
-      li There is no values.
-      li There is no values.
-      li There is no values.
-      li There is no values.
-      li There is no values.
+      span.empty__message No videos found
