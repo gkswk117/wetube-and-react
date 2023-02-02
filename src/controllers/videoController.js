@@ -18,7 +18,8 @@ import User from "../models/User"
 //controller - Using Promise
 export const home = async(req, res)=>{
     try{
-        const videos = await Video.find({}).sort({createdAt: "desc"})
+        const videos = await Video.find({}).sort({createdAt: "desc"}).populate("owner")
+        console.log(videos)
         return res.render("home", {pageTitle:"Home", potato: "I love you.", videos:videos})
     }catch(err){
         console.log(err)
@@ -105,7 +106,7 @@ export const searchVideo = async(req, res) => {
                 $regex: req.query.keyword
                 // https://docs.mongodb.com/manual/reference/operator/query/regex/
             }
-        }).sort({createdAt: "desc"})
+        }).sort({createdAt: "desc"}).populate("owner")
     }
     return res.render("search", {pageTitle: "Search", videos})
 }

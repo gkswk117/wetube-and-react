@@ -1,7 +1,6 @@
 import User from "../models/User"
-import Video from "../models/Video"
-import bcrypt from "bcrypt"
 
+import bcrypt from "bcrypt"
 let link = 1
 export const getSignUp = (req, res) => res.render("signUp", {pageTitle:"Create Account", link}) 
 export const postSignUp = async(req, res) => {
@@ -56,7 +55,10 @@ export const postLogin = async (req, res) => {
   req.session.user = user
   return res.redirect("/");
 };
-
+export const logout = (req, res) => {
+  req.session.destroy();
+  return res.redirect("/")
+}
 export const getEdit = (req, res) => {
   return res.render("edit-profile", {pageTitle:"Edit Profile"})
 }
@@ -69,11 +71,10 @@ export const postEdit = async (req, res) => {
   req.session.user = updatedUser
   return res.redirect("/user/edit")
 }
-export const logout = (req, res) => {
-  req.session.destroy();
-  return res.redirect("/")
-}
 export const getChangePassword = (req,res)=>{
+  if (req.session.user.socialOnly === true) {
+    return res.redirect("/");
+  }
   return res.render("change-password", {pageTitle:"Change Password"})
 }
 export const postChangePassword = async (req,res)=>{
@@ -94,15 +95,22 @@ export const postChangePassword = async (req,res)=>{
     });
   }
   user.password = newPassword
-  await user.save()
   // await User.findByIdAndUpdate(_id, {password:newPassword})
-  return res.redirect("/")
+  await user.save()
+  return res.redirect("/users/logout")
 }
 export const deleteUser = (req, res) => res.send("Delete User Page")
 
 export const seeUser = async (req, res) => {
   const {id} = req.params
-  const user = await User.findById(id).populate("videos");
+  //const user = await User.findById(id).populate("videos");
+  const user = await User.findById(id).populate({
+    path: "videos",
+    populate: {
+      path: "owner",
+      model: "User",
+    },
+  });
   if(!user){
     return res.status(404).render("404", {pageTitle:"User not found."})
   }
