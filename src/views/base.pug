@@ -7,7 +7,8 @@ html(lang="en")
     link(rel="stylesheet", href="/test/css/styles.css")
   body
     include partials/header.pug
-    h1 #{pageTitle} PAGE
-    block content
-    include partials/footer.pug
+    h1 pug 연습 → #{pageTitle} PAGE
+    main
+      block content
+      include partials/footer.pug
   script(src="/test/js/main.js")

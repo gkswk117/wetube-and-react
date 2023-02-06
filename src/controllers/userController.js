@@ -104,6 +104,7 @@ export const deleteUser = (req, res) => res.send("Delete User Page")
 export const seeUser = async (req, res) => {
   const {id} = req.params
   //const user = await User.findById(id).populate("videos");
+  // ↓ double populate로 수정함. 이게 없으면 user 프로필 들어갔을 때 나열되는 비디오에 owner를 표시할 수 없다. #10.3 7:15~
   const user = await User.findById(id).populate({
     path: "videos",
     populate: {

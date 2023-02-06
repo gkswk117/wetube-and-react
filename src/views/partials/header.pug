@@ -3,6 +3,9 @@ header
         i.fab.fa-youtube
     nav
         ul
+            li
+                a(href="/search")
+                    i.fas.fa-search
             if loggedIn
                 li
                     a(href="/video/upload") Upload video
@@ -18,8 +21,6 @@ header
                     a(href="/user/logout") Log Out
             else
                 li
-                    a(href="/signup") Sign up
+                    a(href="/signup").header__btn  Sign Up
                 li
-                    a(href="/login") Sign in
-            li
-                a(href="/search") Search video
+                    a(href="/login") Sign In

@@ -1,7 +1,7 @@
 extends base.pug
 
 block content
-    h2 #{video.title} 제목 수정
+    h2 pug, js 연습 → video.title = #{video.title}
     form(method="POST")
         input(name="title", placeholder="Video Title", value=video.title, required)
         br
