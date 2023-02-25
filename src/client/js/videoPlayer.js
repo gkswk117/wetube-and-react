@@ -47,11 +47,18 @@ const handleVolumeChange = (event) => {
     localStorage.setItem("volume", video.volume)
     localStorage.setItem("mute", video.muted)
 }
+const formatTime = (seconds) => {
+    if(new Date(seconds * 1000).toISOString().substring(14, 15)==="0"){
+        return new Date(seconds * 1000).toISOString().substring(15, 19)    
+    }else{
+        return new Date(seconds * 1000).toISOString().substring(14, 19)
+    }
+}
 const handleLoadedMetadata = () => {
-    totalTime.innerText = Math.floor(video.duration)
+    totalTime.innerText = formatTime(Math.floor(video.duration))
 }
 const handleTimeUpdate = () => {
-    currentTime.innerText = Math.floor(video.currentTime)
+    currentTime.innerText = formatTime(Math.floor(video.currentTime))
 }
 playBtn.addEventListener("click", handlePlayClick)
 muteBtn.addEventListener("click", handleMuteClick)
