@@ -14,7 +14,8 @@ if(video.muted){
     volumeInput.value = 0   
 }
 
-let timeoutID = null;
+let timeoutID = null
+let timeoutID2 = null
 
 const handlePlayClick = () =>{
     if(video.paused){
@@ -69,7 +70,12 @@ const handleMouseMove = () =>{
         clearTimeout(timeoutID)
         timeoutID= null;
     }
+    if(timeoutID2){
+        clearTimeout(timeoutID2)
+        timeoutID2=null;
+    }
     videoControls.classList.add("showing")
+    timeoutID2 = setTimeout(()=>{videoControls.classList.remove("showing")}, 2000)
 }
 const handleMouseLeave = () =>{
     timeoutID = setTimeout(()=>{videoControls.classList.remove("showing")}, 2000)
