@@ -4,6 +4,7 @@ const muteBtn = document.getElementById("mute")
 const volumeInput = document.getElementById("volume")
 const currentTime = document.getElementById("currentTime")
 const totalTime = document.getElementById("totalTime")
+const videoControls = document.getElementById("videoControls")
 
 video.volume = localStorage.getItem("volume")
 volumeInput.value = video.volume
@@ -12,6 +13,9 @@ muteBtn.innerText = video.muted ? "Unmute" : "Mute"
 if(video.muted){
     volumeInput.value = 0   
 }
+
+let timeoutID = null;
+
 const handlePlayClick = () =>{
     if(video.paused){
         video.play()
@@ -60,8 +64,20 @@ const handleLoadedMetadata = () => {
 const handleTimeUpdate = () => {
     currentTime.innerText = formatTime(Math.floor(video.currentTime))
 }
+const handleMouseMove = () =>{
+    if(timeoutID){
+        clearTimeout(timeoutID)
+        timeoutID= null;
+    }
+    videoControls.classList.add("showing")
+}
+const handleMouseLeave = () =>{
+    timeoutID = setTimeout(()=>{videoControls.classList.remove("showing")}, 2000)
+}
 playBtn.addEventListener("click", handlePlayClick)
 muteBtn.addEventListener("click", handleMuteClick)
 volumeInput.addEventListener("input", handleVolumeChange)
 video.addEventListener("loadedmetadata", handleLoadedMetadata)
-video.addEventListener("timeupdate", handleTimeUpdate);
+video.addEventListener("timeupdate", handleTimeUpdate)
+video.addEventListener("mousemove", handleMouseMove)
+video.addEventListener("mouseleave", handleMouseLeave)
