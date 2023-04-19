@@ -22,18 +22,16 @@ app.use(session({
     saveUninitialized: true,
 }))
 // Session 연습
-// app.use((req, res, next) => {
-//     req.session.potato += 1;
-//     console.log("※ session: ")
-//     console.log(req.session)
-//     console.log(`id: ${req.session.id} /////////////////////// potato: ${req.session.potato}`)
+app.use((req, res, next) => {
+    req.session.potato += 1;
+    console.log("※ current session: \n", req.session)
+    console.log(`※ current session.id: \n ${req.session.id} /////////////////////// session.potato: ${req.session.potato}`)
 
-//     req.sessionStore.all((error, sessions) => {
-//       console.log("※ sessions: ")
-//       console.log(sessions);
-//       next();
-//     });
-// });
+    req.sessionStore.all((error, sessions) => {
+      console.log("※ sessions: \n", sessions)
+      next();
+    });
+});
 app.use(localsMiddleware)
 app.use("/uploads", express.static("uploads"))
 app.use("/test", express.static("assets"))
