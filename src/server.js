@@ -16,24 +16,24 @@ app.use(morgan("dev"))
 app.use(loggerMiddleware)
 //middleware를 직접 만들어서 사용해봄.
 app.use(express.urlencoded({extended:true}))
-
+//
 app.use(session({
     secret:"Hello!",
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     store: MongoStore.create({mongoUrl:"mongodb://127.0.0.1:27017/wetube"})
 }))
 // Session 연습
-app.use((req, res, next) => {
-    req.session.potato += 1;
-    console.log("※ current session: \n", req.session)
-    console.log(`※ current session.id: \n ${req.session.id} /////////////////////// session.potato: ${req.session.potato}`)
+// app.use((req, res, next) => {
+//     req.session.potato += 1;
+//     console.log("※ current session: \n", req.session)
+//     console.log(`※ current session.id: \n ${req.session.id} /////////////////////// session.potato: ${req.session.potato}`)
 
-    req.sessionStore.all((error, sessions) => {
-      console.log("※ sessions: \n", sessions)
-      next();
-    });
-});
+//     req.sessionStore.all((error, sessions) => {
+//       console.log("※ sessions: \n", sessions)
+//       next();
+//     });
+// });
 app.use(localsMiddleware)
 app.use("/uploads", express.static("uploads"))
 app.use("/test", express.static("assets"))
