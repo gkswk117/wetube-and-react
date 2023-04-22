@@ -3,6 +3,7 @@ extends base.pug
 block content
     if(errorMessage)
         span=errorMessage
+    p filesize는 2,000,000,000B, 대략 2GB까지만 됩니다.
     form(method="POST", action="/video/upload", enctype="multipart/form-data")
         label(for="videoo")
         input(type="file", accept="video/*", required, id="videoo", name="video")
