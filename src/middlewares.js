@@ -46,10 +46,10 @@ const multerUploader = multerS3({
 export const uploadAvatar = multer({
     dest:"uploads/avatars",
     limits:{fileSize:5000000},
-    //storage: multerUploader
+    storage: multerUploader
 })
 export const uploadVideo = multer({
     dest:"uploads/videos",
     limits:{fileSize:2000000000},
-    //storage: multerUploader
+    storage: multerUploader
 })
