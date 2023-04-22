@@ -2,7 +2,8 @@ extends base.pug
 
 block content
   div#videoContainer
-    video(src="/"+video.fileUrl, controls width="500")
+    video(src=video.fileUrl, controls width="500")
+    //-video(src="/"+video.fileUrl, controls width="500") //파일을 로컬에 저장할 때
     div#videoControls
       button#play Play
       button#mute Mute 

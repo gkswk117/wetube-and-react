@@ -40,7 +40,8 @@ const s3=new aws.S3({
 
 const multerUploader = multerS3({
     s3: s3,
-    bucket: "wetube-gkswk117"
+    bucket: "wetube-gkswk117",
+    acl:"public-read",
 })
 
 export const uploadAvatar = multer({

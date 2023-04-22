@@ -32,8 +32,10 @@ export const getUpload = (req, res) =>{
 }
 export const postUpload = async (req, res) =>{
     const _id = req.session.user._id
-    const {path: fileUrl} = req.file //(es6문법)
+    // const {path: fileUrl} = req.file //파일을 로컬에 저장할 때
     // const fileUrl = req.file.path 
+    const {location: fileUrl} = req.file //파일을 aws에 저장할 때
+    // const fileUrl = req.file.location
     try{
         const newVideo = await Video.create({
             title:req.body.tomato,

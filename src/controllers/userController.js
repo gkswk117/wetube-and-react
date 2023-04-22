@@ -67,7 +67,8 @@ export const postEdit = async (req, res) => {
   // const {name,email,username,location} = req.body
   // const file = req.file
   const { session:{user:_id}, body:{name,email,username,location}, file } = req
-  const updatedUser = await User.findByIdAndUpdate(_id, {name,email,username,location, avatarUrl: file ? file.path : avatarUrl}, {new:true},)
+  console.log(file)
+  const updatedUser = await User.findByIdAndUpdate(_id, {name,email,username,location, avatarUrl: file ? file.location : avatarUrl}, {new:true},)
   req.session.user = updatedUser
   return res.redirect("/user/edit")
 }
