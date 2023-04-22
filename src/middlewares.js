@@ -1,4 +1,6 @@
 import multer from "multer";
+import multerS3 from "multer-s3"
+import aws from 'aws-sdk'
 
 export const loggerMiddleware=(req,res,next)=>{
     console.log("\n\n\n\n\n페이지 새로고침------------------------------------------>")
@@ -29,5 +31,25 @@ export const publicOnlyMiddleware = (req, res, next) => {
     }
 };
 
-export const uploadAvatar = multer({dest:"uploads/avatars", limits:{fileSize:5000000}})
-export const uploadVideo = multer({dest:"uploads/videos", limits:{fileSize:10000000}})
+const s3=new aws.S3({
+    credentials:{
+        accessKeyId: process.env.AWS_ID,
+        secretAccessKey: process.env.AWS_SECRET
+    }
+})
+
+const multerUploader = multerS3({
+    s3: s3,
+    bucket: "wetube-gkswk117"
+})
+
+export const uploadAvatar = multer({
+    dest:"uploads/avatars",
+    limits:{fileSize:5000000},
+    //storage: multerUploader
+})
+export const uploadVideo = multer({
+    dest:"uploads/videos",
+    limits:{fileSize:1000000000},
+    //storage: multerUploader
+})
