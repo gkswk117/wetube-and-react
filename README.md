@@ -18,6 +18,17 @@ show collections
 db.users.find({})
 db.users.remove({})
 
+- 로컬과 CloudType
+1. 데이터베이스 위치
+로컬: 로컬 몽고디비에 저장. .env에 있는 DB_URL 참고.
+CloudType: 몽고디비 Atlas에 저장. CloudType의 Environment variables에 있는 DB_URL 참고.
+
+2. 동영상 및 사진 저장 위치
+로컬과 CloudType 둘 다 AWS에 저장.
+추후에 로컬은 로컬 폴더에 저장하도록 바꿀 예정.
+
+3. 
+
 / → Home
 /join → Join
 /login → Login

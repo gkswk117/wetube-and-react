@@ -36,6 +36,8 @@ export const postUpload = async (req, res) =>{
     // const fileUrl = req.file.path 
     const {location: fileUrl} = req.file //파일을 aws에 저장할 때
     // const fileUrl = req.file.location
+    console.dir(req.file)
+    console.log(`req.file.location = ${req.file.location}`)
     try{
         const newVideo = await Video.create({
             title:req.body.tomato,
